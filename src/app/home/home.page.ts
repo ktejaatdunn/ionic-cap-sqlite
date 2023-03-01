@@ -69,13 +69,15 @@ export class HomePage {
   //   });
   // }
 
+  insertHeadersBulkData() {
+    this.insertHeaderTime = Date.parse(new Date().toLocaleString()) + " | " + moment().format('MMMM Do YYYY, h:mm:ss:SSS a');
+    this.addHeadersBulkData();
+  }
+
   addHeadersBulkData(index = 0) {
     let temparray = [];
-    console.warn((index + this.chunk), index, this.chunk);
     for (let i = index; i < this.headers.length; i++) {
-      console.log((index + this.chunk), index, i, this.chunk);
       if (i >= (index + this.chunk)) {
-        console.error((index + this.chunk), index, i, this.chunk);
         break;
       }
       const { id, actualActDate, contract, contractBranch, createdAt, customerAddress, customerName, message, plannedActDate, serial, serialDescription, syncStatus, updatedAt, userId, vapsStatus, vapsStatusDescription } = this.removeQuotes(this.headers[i]);
@@ -102,7 +104,7 @@ export class HomePage {
     }
     console.log("Materials temparray::::::::::::::::\n", temparray);
     this._sqlite.insertHeader(temparray).then(resp => {
-      this.insertHeaderEndTime = Date.parse(new Date().toLocaleString()) + " | " + moment().format('MMMM Do YYYY, h:mm:ss:SSS a');
+      this.insertMaterialEndTime = Date.parse(new Date().toLocaleString()) + " | " + moment().format('MMMM Do YYYY, h:mm:ss:SSS a');
       index = index + this.chunk
       if (!(index >= this.materials.length)) {
         this.addMaterialsBulkData(index);
@@ -170,11 +172,14 @@ export class HomePage {
   removeQuotes(data: any) {
     const tempData: any = {};
     for (let key in data) {
-      if (data[key]?.includes('"')) {
-        data[key] = data[key]?.split('"').join("");
+      if (typeof data[key] === 'string' && data[key]?.includes('"')) {
+        // console.log(data[key]?.split('"').join(""), data[key])
+        tempData[key] = data[key]?.split('"').join("");
+      } else {
+        tempData[key] = data[key]
       }
     }
-    console.log("tempdata in removeQuotes::::|n", tempData);
+    // console.log("tempdata in removeQuotes::::n", tempData);
     const { id, actualActDate, contract, contractBranch, createdAt, customerAddress, customerName, message, plannedActDate, serial, serialDescription, syncStatus, updatedAt, userId, vapsStatus, vapsStatusDescription } = tempData;
     return { id, actualActDate, contract, contractBranch, createdAt, customerAddress, customerName, message, plannedActDate, serial, serialDescription, syncStatus, updatedAt, userId, vapsStatus, vapsStatusDescription }
   }
