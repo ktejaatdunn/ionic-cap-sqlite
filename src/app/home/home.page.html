@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Capcacitor BD Test
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background: var(--ion-color-light)">
+
+
+  <ion-item lines="full" class="ion-margin-bottom">
+    <ion-label position="floating">Enter Chunk for bulk upload</ion-label>
+    <ion-input type="tel" inputmode="tel" [(ngModel)]="chunk"></ion-input>
+  </ion-item>
+
+  <ion-item-divider color="dark" lines>
+    <ion-label>INSERT SECTION</ion-label>
+  </ion-item-divider>
+
+  <ion-text class="ion-text-wrap">
+    startTime: {{insertHeaderTime}} <br /> endTime: {{insertHeaderEndTime}}
+  </ion-text>
+  <ion-button (click)="addHeadersData()" expand="block" shape="round" class="ion-margin-bottom">
+    Insert Headers
+  </ion-button>
+  <ion-button (click)="addHeadersBulkData()" expand="block" shape="round" class="ion-margin-bottom">
+    Insert Bulk Headers
+  </ion-button>
+
+  <ion-text class="ion-text-wrap">
+    startTime: {{insertMaterialTime}} <br /> endTime: {{insertMaterialEndTime}}
+  </ion-text>
+  <ion-button (click)="addMaterialsData()" expand="block" shape="round" class="ion-margin-bottom">
+    Insert Materials
+  </ion-button>
+  <ion-button (click)="addMaterialsBulkData()" expand="block" shape="round" class="ion-margin-bottom">
+    Insert Bulk Materials
+  </ion-button>
+
+
+  <ion-item-divider color="dark">
+    <ion-label>GET SECTION</ion-label>
+  </ion-item-divider>
+
+  <ion-text class="ion-text-wrap">
+    startTime: {{getHeaderTime}} <br /> endTime: {{getHeaderEndTime}}
+  </ion-text>
+  <ion-button (click)="getHeaders()" expand="block" shape="round" class="ion-margin-bottom">
+    Get Headers
+  </ion-button>
+
+  <ion-text class="ion-text-wrap">
+    startTime: {{getMaterialTime}} <br /> endTime: {{getMaterialEndTime}}
+  </ion-text>
+  <ion-button (click)="getMaterials()" expand="block" shape="round" class="ion-margin-bottom">
+    Get Materials
+  </ion-button>
+
+  <ion-button (click)="clearData()" expand="block" shape="round" class="ion-margin-bottom">
+    Clear Data
+  </ion-button>
+</ion-content>
